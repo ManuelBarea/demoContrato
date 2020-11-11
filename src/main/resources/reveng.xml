@@ -1,0 +1,13 @@
+<!DOCTYPE hibernate-reverse-engineering SYSTEM "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+ 
+
+<hibernate-reverse-engineering>
+
+  <schema-selection match-schema="MY_SCHEMA"/>
+  <type-mapping>
+  	<sql-type jdbc-type="-102" hibernate-type="java.util.Date"/>
+  	<sql-type jdbc-type="CHAR" hibernate-type="yes_no"/>
+  	<sql-type jdbc-type="NUMERIC" hibernate-type="Integer"/>
+  </type-mapping>
+
+</hibernate-reverse-engineering>
