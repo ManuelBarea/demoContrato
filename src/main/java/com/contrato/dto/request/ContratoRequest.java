@@ -1,4 +1,4 @@
-package com.contrato.demo.models;
+package com.contrato.dto.request;
 
 import javax.validation.constraints.NotNull;
 

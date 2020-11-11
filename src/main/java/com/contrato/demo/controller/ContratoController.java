@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.contrato.demo.exceptions.ExceptionBase;
-import com.contrato.demo.models.ContratoRequest;
-import com.contrato.demo.models.ContratoResponse;
 import com.contrato.demo.service.IContratoService;
+import com.contrato.dto.request.ContratoRequest;
+import com.contrato.dto.response.ContratoResponse;
 
 @RestController
 public class ContratoController {

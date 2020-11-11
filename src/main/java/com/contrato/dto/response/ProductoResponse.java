@@ -1,4 +1,4 @@
-package com.contrato.demo.models;
+package com.contrato.dto.response;
 
 public class ProductoResponse {
 	private Integer idProducto;

@@ -3,8 +3,8 @@ package com.contrato.demo.service;
 import java.util.List;
 
 import com.contrato.demo.exceptions.ExceptionBase;
-import com.contrato.demo.models.ContratoRequest;
-import com.contrato.demo.models.ContratoResponse;
+import com.contrato.dto.request.ContratoRequest;
+import com.contrato.dto.response.ContratoResponse;
 
 public interface IContratoService {
 

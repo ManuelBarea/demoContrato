@@ -11,13 +11,13 @@ import org.springframework.util.CollectionUtils;
 
 import com.contrato.demo.entities.Contrato;
 import com.contrato.demo.exceptions.ExceptionBase;
-import com.contrato.demo.models.ContratoRequest;
-import com.contrato.demo.models.ContratoResponse;
 import com.contrato.demo.repositories.ContratoRepository;
 import com.contrato.demo.repositories.PersonaRepository;
 import com.contrato.demo.repositories.ProductoRepository;
 import com.contrato.demo.service.IContratoService;
 import com.contrato.demo.utils.Mappers;
+import com.contrato.dto.request.ContratoRequest;
+import com.contrato.dto.response.ContratoResponse;
 @Service
 public class ContratoServiceImpl implements IContratoService{
 

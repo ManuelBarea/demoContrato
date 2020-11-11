@@ -1,5 +1,6 @@
 package com.contrato.demo.service.impl;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,11 +13,17 @@ import org.springframework.util.StringUtils;
 
 import com.contrato.demo.entities.Persona;
 import com.contrato.demo.exceptions.ExceptionBase;
-import com.contrato.demo.models.PersonaRequest;
-import com.contrato.demo.models.PersonaResponse;
 import com.contrato.demo.repositories.PersonaRepository;
 import com.contrato.demo.service.IPersonaService;
+import com.contrato.demo.utils.ErrorMessages;
 import com.contrato.demo.utils.Mappers;
+import com.contrato.dto.request.PersonaRequest;
+import com.contrato.dto.response.PersonaResponse;
+/**
+ * Clase que implementa la interfaz IPersonaService. ( Los metodos tienen sus Javadocs en la Interfaz )
+ * @author manuel.barea.velez
+ *
+ */
 @Service
 public class PersonaServiceImpl implements IPersonaService{
 
@@ -38,7 +45,7 @@ public class PersonaServiceImpl implements IPersonaService{
 		if(repoPersona.existsById(idPersona)) {
 			repoPersona.deleteById(idPersona);
 		}else {
-			throw new ExceptionBase("No existe persona con el id indicado", HttpStatus.NOT_FOUND);
+			throw new ExceptionBase(MessageFormat.format(ErrorMessages.NOT_FOUND_PERSONA, idPersona), HttpStatus.NOT_FOUND);
 		}
 		
 	}
@@ -55,7 +62,7 @@ public class PersonaServiceImpl implements IPersonaService{
 				response.add(persona);
 			}
 		}else {
-			throw new ExceptionBase("No existen datos con los parametros indicados", HttpStatus.NOT_FOUND);
+			throw new ExceptionBase(ErrorMessages.NOT_FOUND_PERSONA_PARAMS, HttpStatus.BAD_REQUEST);
 		}
 		
 		return response;
@@ -70,7 +77,7 @@ public class PersonaServiceImpl implements IPersonaService{
 		if(entity.isPresent()) {
 			response = Mappers.mapperPersonaToPersonaResponse(entity.get());
 		}else {
-			throw new ExceptionBase("No existe ninguna persona con el id: " + idPersona, HttpStatus.NOT_FOUND);
+			throw new ExceptionBase(MessageFormat.format(ErrorMessages.NOT_FOUND_PERSONA, idPersona), HttpStatus.NOT_FOUND);
 		}
 		return response;
 	}
@@ -83,7 +90,7 @@ public class PersonaServiceImpl implements IPersonaService{
 			mapperNoNulosPersona(entity.get(), request);
 			repoPersona.save(entity.get());
 		}else {
-			throw new ExceptionBase("No existe persona con el idIndicado.", HttpStatus.NOT_FOUND);
+			throw new ExceptionBase(MessageFormat.format(ErrorMessages.NOT_FOUND_PERSONA, idPersona), HttpStatus.NOT_FOUND);
 		}
 		
 	}
@@ -92,8 +99,8 @@ public class PersonaServiceImpl implements IPersonaService{
 		if(!StringUtils.isEmpty(request.getNombre())) {
 			entity.setNombre(request.getNombre());
 		}
-		if(!StringUtils.isEmpty(request.getApellido())) {
-			entity.setApellido1(request.getApellido());
+		if(!StringUtils.isEmpty(request.getApellido1())) {
+			entity.setApellido1(request.getApellido1());
 		}
 	}
 

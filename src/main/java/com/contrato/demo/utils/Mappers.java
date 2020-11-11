@@ -1,16 +1,14 @@
 package com.contrato.demo.utils;
 
-import java.util.Random;
-
 import com.contrato.demo.entities.Contrato;
 import com.contrato.demo.entities.Persona;
 import com.contrato.demo.entities.Producto;
-import com.contrato.demo.models.ContratoRequest;
-import com.contrato.demo.models.ContratoResponse;
-import com.contrato.demo.models.PersonaRequest;
-import com.contrato.demo.models.PersonaResponse;
-import com.contrato.demo.models.ProductoRequest;
-import com.contrato.demo.models.ProductoResponse;
+import com.contrato.dto.request.ContratoRequest;
+import com.contrato.dto.request.PersonaRequest;
+import com.contrato.dto.request.ProductoRequest;
+import com.contrato.dto.response.ContratoResponse;
+import com.contrato.dto.response.PersonaResponse;
+import com.contrato.dto.response.ProductoResponse;
 
 public class Mappers {
 	public static Contrato mapeoContratoRequestToContrato(ContratoRequest contrato) {
@@ -31,12 +29,12 @@ public class Mappers {
 	
 		ContratoResponse response = new ContratoResponse();
 		PersonaResponse arrendador = new PersonaResponse();
-		arrendador.setIdPersona(contrato.getArrendador().getDni());
-		arrendador.setNombreApellidos(contrato.getArrendador().getNombre() +  " " + contrato.getArrendador().getApellido1());
+		arrendador.setDni(contrato.getArrendador().getDni());
+		arrendador.setNombre(contrato.getArrendador().getNombre());
 		
 		PersonaResponse contratante = new PersonaResponse();
-		contratante.setIdPersona(contrato.getContratante().getDni());
-		contratante.setNombreApellidos(contrato.getContratante().getNombre() +  " " + contrato.getContratante().getApellido1());
+		contratante.setDni(contrato.getContratante().getDni());
+		contratante.setNombre(contrato.getContratante().getNombre());
 		
 		response.setArrendador(arrendador);
 		response.setContratante(contratante);
@@ -50,11 +48,17 @@ public class Mappers {
 		return response;
 	}
 
+	/**
+	 * Mapea a la entidad de Persona para insertar en BBDD
+	 * @param persona
+	 * @return Persona
+	 */
 	public static Persona mapperPersonaRequestToPersona(PersonaRequest persona) {
 		Persona entity = new Persona();
 		
 		entity.setDni(persona.getDni());
-		entity.setApellido1(persona.getApellido());
+		entity.setApellido1(persona.getApellido1());
+		entity.setApellido2(persona.getApellido2());
 		entity.setNombre(persona.getNombre());
 		entity.setDireccion(persona.getDireccion());
 		entity.setTelefono(persona.getTelefono());
@@ -62,10 +66,18 @@ public class Mappers {
 		return entity;
 	}
 
+	/**
+	 * Mapea la entidad a PersonaResponse.
+	 * @param persona
+	 * @return PersonaResponse
+	 */
 	public static PersonaResponse mapperPersonaToPersonaResponse(Persona persona) {
 		PersonaResponse response = new PersonaResponse();
-		response.setIdPersona(persona.getDni());
-		response.setNombreApellidos(persona.getNombre() + " " + persona.getApellido1());
+		response.setDni(persona.getDni());
+		response.setNombre(persona.getNombre());
+		response.setApellido1(persona.getApellido1());
+		response.setApellido2(persona.getApellido2());
+		response.setDireccion(persona.getDireccion());
 		return response;
 	}
 

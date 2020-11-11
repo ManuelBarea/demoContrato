@@ -1,4 +1,4 @@
-package com.contrato.demo.models;
+package com.contrato.dto.response;
 
 public class ContratoResponse {
 

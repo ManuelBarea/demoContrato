@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.contrato.demo.exceptions.ExceptionBase;
-import com.contrato.demo.models.ProductoRequest;
-import com.contrato.demo.models.ProductoResponse;
 import com.contrato.demo.service.IProductoService;
+import com.contrato.dto.request.ProductoRequest;
+import com.contrato.dto.response.ProductoResponse;
 
 @RestController
 public class ProductoController {

@@ -12,11 +12,11 @@ import org.springframework.util.StringUtils;
 
 import com.contrato.demo.entities.Producto;
 import com.contrato.demo.exceptions.ExceptionBase;
-import com.contrato.demo.models.ProductoRequest;
-import com.contrato.demo.models.ProductoResponse;
 import com.contrato.demo.repositories.ProductoRepository;
 import com.contrato.demo.service.IProductoService;
 import com.contrato.demo.utils.Mappers;
+import com.contrato.dto.request.ProductoRequest;
+import com.contrato.dto.response.ProductoResponse;
 @Service
 public class ProductoServiceImpl implements IProductoService {
 
