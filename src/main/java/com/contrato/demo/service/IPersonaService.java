@@ -2,6 +2,7 @@ package com.contrato.demo.service;
 import java.util.List;
 
 import com.contrato.demo.exceptions.ExceptionBase;
+import com.contrato.dto.request.PersonaPatchRequest;
 import com.contrato.dto.request.PersonaRequest;
 import com.contrato.dto.response.PersonaResponse;
 /**
@@ -29,15 +30,18 @@ public interface IPersonaService {
 	/**
 	 * Consulta un listado de personas segun los criterios indicados.
 	 * @param nombre
-	 * @param apellido
+	 * @param apellido1
+	 * @param apellido2
+	 * @param direccion
+	 * @param telefono
 	 * @return List<PersonaResponse>
 	 * @throws ExceptionBase
 	 */
-	List<PersonaResponse> consultarPersonas(String nombre, String apellido) throws ExceptionBase;
+	List<PersonaResponse> consultarPersonas(String nombre, String apellido1, String apellido2, String direccion, String telefono) throws ExceptionBase;
 	
 	/**
 	 * Consulta una persona mediante su dni
-	 * @param idPersona
+	 * @param dni
 	 * @return PersonaResponse
 	 * @throws ExceptionBase
 	 */
@@ -49,5 +53,5 @@ public interface IPersonaService {
 	 * @param request
 	 * @throws ExceptionBase
 	 */
-	void actualizarPersona(Integer dni, PersonaRequest request) throws ExceptionBase;
+	void actualizarPersona(Integer dni, PersonaPatchRequest request) throws ExceptionBase;
 }

@@ -13,12 +13,18 @@ import org.springframework.util.StringUtils;
 
 import com.contrato.demo.entities.Persona;
 import com.contrato.demo.exceptions.ExceptionBase;
+import com.contrato.demo.exceptions.NotFoundException;
+import com.contrato.demo.model.CriteriaPersona;
+import com.contrato.demo.repositories.PersonaCustomRepository;
 import com.contrato.demo.repositories.PersonaRepository;
 import com.contrato.demo.service.IPersonaService;
 import com.contrato.demo.utils.ErrorMessages;
 import com.contrato.demo.utils.Mappers;
+import com.contrato.dto.request.PersonaPatchRequest;
 import com.contrato.dto.request.PersonaRequest;
 import com.contrato.dto.response.PersonaResponse;
+
+
 /**
  * Clase que implementa la interfaz IPersonaService. ( Los metodos tienen sus Javadocs en la Interfaz )
  * @author manuel.barea.velez
@@ -30,6 +36,9 @@ public class PersonaServiceImpl implements IPersonaService{
 	@Autowired
 	private PersonaRepository repoPersona;
 	
+	@Autowired
+	private PersonaCustomRepository repoCustomPersona;
+	
 	@Override
 	public Integer crearPersona(PersonaRequest persona) throws ExceptionBase {
 		
@@ -40,21 +49,21 @@ public class PersonaServiceImpl implements IPersonaService{
 	}
 
 	@Override
-	public void eliminarPersona(Integer idPersona) throws ExceptionBase {
+	public void eliminarPersona(Integer dni) throws ExceptionBase {
 		
-		if(repoPersona.existsById(idPersona)) {
-			repoPersona.deleteById(idPersona);
+		if(repoPersona.existsById(dni)) {
+			repoPersona.deleteById(dni);
 		}else {
-			throw new ExceptionBase(MessageFormat.format(ErrorMessages.NOT_FOUND_PERSONA, idPersona), HttpStatus.NOT_FOUND);
+			throw new NotFoundException(MessageFormat.format(ErrorMessages.NOT_FOUND_PERSONA, dni));
 		}
 		
 	}
 
 	@Override
-	public List<PersonaResponse> consultarPersonas(String nombre, String apellido) throws ExceptionBase {
-		// FIXME : Consultar con criterios
+	public List<PersonaResponse> consultarPersonas(String nombre, String apellido1, String apellido2, String direccion, String telefono) throws ExceptionBase {
 		List<PersonaResponse> response = null;
-		List<Persona> entitiesPersona = repoPersona.findAll();
+		CriteriaPersona criteria = new CriteriaPersona(nombre, apellido1, apellido2, direccion, telefono);
+		List<Persona> entitiesPersona = repoCustomPersona.findPersonasByCriteria(criteria);
 		if(!CollectionUtils.isEmpty(entitiesPersona)) {
 			response = new ArrayList<>();
 			for(Persona entity : entitiesPersona) {
@@ -69,38 +78,56 @@ public class PersonaServiceImpl implements IPersonaService{
 	}
 
 	@Override
-	public PersonaResponse consultarPersona(Integer idPersona) throws ExceptionBase {
-		Optional<Persona> entity = repoPersona.findById(idPersona);
+	public PersonaResponse consultarPersona(Integer dni) throws ExceptionBase {
+		Optional<Persona> entity = repoPersona.findById(dni);
 		
 		PersonaResponse response = null;
 		
 		if(entity.isPresent()) {
 			response = Mappers.mapperPersonaToPersonaResponse(entity.get());
 		}else {
-			throw new ExceptionBase(MessageFormat.format(ErrorMessages.NOT_FOUND_PERSONA, idPersona), HttpStatus.NOT_FOUND);
+			throw new NotFoundException(MessageFormat.format(ErrorMessages.NOT_FOUND_PERSONA, dni));
 		}
 		return response;
 	}
 
 	@Override
-	public void actualizarPersona(Integer idPersona, PersonaRequest request) throws ExceptionBase {
+	public void actualizarPersona(Integer dni, PersonaPatchRequest request) throws ExceptionBase {
 		
-		if(repoPersona.existsById(idPersona)) {
-			Optional<Persona> entity = repoPersona.findById(idPersona);
+		if(repoPersona.existsById(dni)) {
+			Optional<Persona> entity = repoPersona.findById(dni);
 			mapperNoNulosPersona(entity.get(), request);
 			repoPersona.save(entity.get());
 		}else {
-			throw new ExceptionBase(MessageFormat.format(ErrorMessages.NOT_FOUND_PERSONA, idPersona), HttpStatus.NOT_FOUND);
+			throw new NotFoundException(MessageFormat.format(ErrorMessages.NOT_FOUND_PERSONA, dni));
 		}
 		
 	}
 	
-	private void mapperNoNulosPersona(Persona entity, PersonaRequest request) {
+	/**
+	 * Mapea los campos no nulos del request para actualizar la entidad
+	 * @param entity
+	 * @param request
+	 */
+	private void mapperNoNulosPersona(Persona entity, PersonaPatchRequest request) {
 		if(!StringUtils.isEmpty(request.getNombre())) {
 			entity.setNombre(request.getNombre());
 		}
+		
 		if(!StringUtils.isEmpty(request.getApellido1())) {
 			entity.setApellido1(request.getApellido1());
+		}
+		
+		if(!StringUtils.isEmpty(request.getApellido2())) {
+			entity.setApellido2(request.getApellido2());
+		}
+		
+		if(!StringUtils.isEmpty(request.getDireccion())) {
+			entity.setDireccion(request.getDireccion());
+		}
+		
+		if(!StringUtils.isEmpty(request.getTelefono())) {
+			entity.setTelefono(request.getTelefono());
 		}
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.contrato.demo.exceptions.ExceptionBase;
+import com.contrato.demo.exceptions.NotFoundException;
 
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -17,6 +18,11 @@ public class RestResponseExceptionHandler {
 
 	@ExceptionHandler(value = {ExceptionBase.class})
 	protected ResponseEntity<?> handleServicioException(ExceptionBase ex){
+		return ResponseEntity.status(obtenerStatus(ex)).body(ex.getMessage());
+	}
+	
+	@ExceptionHandler(value = {NotFoundException.class})
+	protected ResponseEntity<?> handleServicioException(NotFoundException ex){
 		return ResponseEntity.status(obtenerStatus(ex)).body(ex.getMessage());
 	}
 	

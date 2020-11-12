@@ -78,6 +78,7 @@ public class Mappers {
 		response.setApellido1(persona.getApellido1());
 		response.setApellido2(persona.getApellido2());
 		response.setDireccion(persona.getDireccion());
+		response.setTelefono(persona.getTelefono());
 		return response;
 	}
 

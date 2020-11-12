@@ -19,7 +19,11 @@ import com.contrato.demo.exceptions.ExceptionBase;
 import com.contrato.demo.service.IProductoService;
 import com.contrato.dto.request.ProductoRequest;
 import com.contrato.dto.response.ProductoResponse;
-
+/**
+ * Controller que administra las operaciones de los productos
+ * @author manuel.barea.velez
+ *
+ */
 @RestController
 public class ProductoController {
 
@@ -27,6 +31,11 @@ public class ProductoController {
 	@Autowired
 	private IProductoService service;
 	
+	/**
+	 * Consulta productos mediante criterios
+	 * @return ResponseEntity<List<ProductoResponse>>
+	 * @throws ExceptionBase
+	 */
 	@GetMapping(path = "productos")
 	public ResponseEntity<List<ProductoResponse>> consultarProductos() throws ExceptionBase{
 		
