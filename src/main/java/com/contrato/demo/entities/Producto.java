@@ -9,29 +9,37 @@ import javax.persistence.Table;
 @Table(name = "PRODUCTO")
 public class Producto {
 
-	private Integer idProducto;
-	private String direccion;
-	private String valor;
+	private Integer id;
+	private String nombre;
+	private String tipo;
+	private String noContrato;
 	@Id
-	@Column(name = "IDPRODUCTO",nullable = false)
-	public Integer getIdProducto() {
-		return idProducto;
+	@Column(name = "ID",nullable = false)
+	public Integer getId() {
+		return id;
 	}
-	public void setIdProducto(Integer idProducto) {
-		this.idProducto = idProducto;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	@Column(name = "DIRECCION",nullable = false)
-	public String getDireccion() {
-		return direccion;
+	@Column(name = "NOMBRE",nullable = false)
+	public String getNombre() {
+		return nombre;
 	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	@Column(name = "VALOR",nullable = false)
-	public String getValor() {
-		return valor;
+	@Column(name = "TIPO",nullable = false)
+	public String getTipo() {
+		return tipo;
 	}
-	public void setValor(String valor) {
-		this.valor = valor;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	@Column(name = "NOCONTRATO",nullable = false)
+	public String getNoContrato() {
+		return noContrato;
+	}
+	public void setNoContrato(String noContrato) {
+		this.noContrato = noContrato;
 	}
 }

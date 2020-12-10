@@ -1,4 +1,4 @@
-package com.contrato.demo.repositories;
+package com.contrato.demo.repositories.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import com.contrato.demo.entities.Persona;
 import com.contrato.demo.model.CriteriaPersona;
+import com.contrato.demo.repositories.PersonaCustomRepository;
 import com.contrato.demo.utils.Constants;
 import com.contrato.demo.utils.Utils;
 /**

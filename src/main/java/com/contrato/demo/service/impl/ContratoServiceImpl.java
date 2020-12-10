@@ -110,7 +110,7 @@ public class ContratoServiceImpl implements IContratoService{
 		
 		if(contrato.getIdProducto() != null) {
 			if(repoProducto.existsById(contrato.getIdProducto())) {
-				entity.getIdProducto().setIdProducto(contrato.getIdProducto());
+				entity.getIdProducto().setId(contrato.getIdProducto());
 			}else {
 				throw new ExceptionBase("El producto indicado no está dado de alta en el sistema.", HttpStatus.BAD_REQUEST);
 			}

@@ -12,7 +12,15 @@ public interface IProductoService {
 	
 	ProductoResponse consultarProducto(Integer idProducto)throws ExceptionBase;
 	
-	List<ProductoResponse> consultarProductos(String direccion, String valor)throws ExceptionBase;
+	/**
+	 * Consulta productos mediante los criterios informados.
+	 * @param nombre
+	 * @param tipo
+	 * @param noContrato
+	 * @return List<ProductoResponse>
+	 * @throws ExceptionBase
+	 */
+	List<ProductoResponse> consultarProductos(String nombre, String tipo, String noContrato)throws ExceptionBase;
 	
 	void actualizarProducto(Integer idProducto, ProductoRequest request)throws ExceptionBase;
 	

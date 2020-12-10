@@ -12,6 +12,8 @@ import org.springframework.util.StringUtils;
 
 import com.contrato.demo.entities.Producto;
 import com.contrato.demo.exceptions.ExceptionBase;
+import com.contrato.demo.model.CriteriaProducto;
+import com.contrato.demo.repositories.ProductoCustomRepository;
 import com.contrato.demo.repositories.ProductoRepository;
 import com.contrato.demo.service.IProductoService;
 import com.contrato.demo.utils.Mappers;
@@ -22,13 +24,15 @@ public class ProductoServiceImpl implements IProductoService {
 
 	@Autowired
 	private ProductoRepository repoProducto;
+	@Autowired
+	private ProductoCustomRepository repoProductoCustom;
 
 	@Override
 	public Integer insertarProducto(ProductoRequest request) throws ExceptionBase {
 
 		Producto entity = Mappers.mapperProductoRequestToProducto(request);
 		repoProducto.save(entity);
-		return entity.getIdProducto();
+		return entity.getId();
 	}
 
 	@Override
@@ -46,10 +50,14 @@ public class ProductoServiceImpl implements IProductoService {
 	}
 
 	@Override
-	public List<ProductoResponse> consultarProductos(String direccion, String valor) throws ExceptionBase {
+	public List<ProductoResponse> consultarProductos(String nombre, String tipo, String noContrato) throws ExceptionBase {
 		List<ProductoResponse> response = null;
-		List<Producto> entitiesProducto = repoProducto.findAll();
+		CriteriaProducto criteria = new CriteriaProducto(nombre, noContrato, tipo);
+		
+		List<Producto> entitiesProducto = repoProductoCustom.consultaProductosByCriteria(criteria);
+
 		if (!CollectionUtils.isEmpty(entitiesProducto)) {
+			
 			response = new ArrayList<ProductoResponse>();
 			for (Producto entity : entitiesProducto) {
 				ProductoResponse producto = Mappers.mapperProductoToProductoResponse(entity);
@@ -76,10 +84,10 @@ public class ProductoServiceImpl implements IProductoService {
 
 	private void mapperNoNulosProductoRequest(Producto entity, ProductoRequest request) {
 		if (!StringUtils.isEmpty(request.getDireccion())) {
-			entity.setDireccion(request.getDireccion());
+//			entity.setDireccion(request.getDireccion());
 		}
 		if (!StringUtils.isEmpty(request.getValor())) {
-			entity.setValor(request.getValor());
+//			entity.setValor(request.getValor());
 		}
 	}
 

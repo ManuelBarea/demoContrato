@@ -14,7 +14,7 @@ public class Mappers {
 	public static Contrato mapeoContratoRequestToContrato(ContratoRequest contrato) {
 		Contrato entity = new Contrato();
 		Producto producto = new Producto();
-		producto.setIdProducto(contrato.getIdProducto());
+//		producto.setIdProducto(contrato.getIdProducto());
 		entity.setIdProducto(producto);
 		Persona contratante = new Persona();
 		contratante.setDni(contrato.getIdContratante());
@@ -40,9 +40,9 @@ public class Mappers {
 		response.setContratante(contratante);
 		
 		ProductoResponse producto = new ProductoResponse();
-		producto.setIdProducto(contrato.getIdProducto().getIdProducto());
-		producto.setDireccion(contrato.getIdProducto().getDireccion());
-		producto.setValor(contrato.getIdProducto().getValor());
+//		producto.setIdProducto(contrato.getIdProducto().getIdProducto());
+//		producto.setDireccion(contrato.getIdProducto().getDireccion());
+//		producto.setValor(contrato.getIdProducto().getValor());
 		response.setProducto(producto);
 		response.setIdContrato(contrato.getIdContrato());
 		return response;
@@ -84,16 +84,17 @@ public class Mappers {
 
 	public static Producto mapperProductoRequestToProducto(ProductoRequest request) {
 		Producto producto = new Producto();
-		producto.setDireccion(request.getDireccion());
-		producto.setValor(request.getValor());
+//		producto.setDireccion(request.getDireccion());
+//		producto.setValor(request.getValor());
 		return producto;
 	}
 
 	public static ProductoResponse mapperProductoToProductoResponse(Producto producto) {
 		ProductoResponse response = new ProductoResponse();
-		response.setDireccion(producto.getDireccion());
-		response.setIdProducto(producto.getIdProducto());
-		response.setValor(producto.getValor());
+		response.setNoContrado(producto.getNoContrato());
+		response.setIdProducto(producto.getId());
+		response.setTipo(producto.getTipo());
+		response.setNombre(producto.getNombre());
 		return response;
 	}
 }

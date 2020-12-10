@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.contrato.demo.exceptions.ExceptionBase;
@@ -32,14 +33,19 @@ public class ProductoController {
 	private IProductoService service;
 	
 	/**
-	 * Consulta productos mediante criterios
+	 * Consulta producto mediante los criterios informados.
+	 * @param nombre
+	 * @param tipo
+	 * @param noContrato
 	 * @return ResponseEntity<List<ProductoResponse>>
 	 * @throws ExceptionBase
 	 */
 	@GetMapping(path = "productos")
-	public ResponseEntity<List<ProductoResponse>> consultarProductos() throws ExceptionBase{
+	public ResponseEntity<List<ProductoResponse>> consultarProductos(@RequestParam(required = false) String nombre,
+			@RequestParam(required = false) String tipo,
+			@RequestParam(required = false) String noContrato) throws ExceptionBase{
 		
-		return new ResponseEntity<List<ProductoResponse>>(service.consultarProductos(null, null), HttpStatus.OK);
+		return new ResponseEntity<List<ProductoResponse>>(service.consultarProductos(nombre, tipo, noContrato), HttpStatus.OK);
 		
 	}
 

@@ -11,6 +11,11 @@ import com.contrato.demo.model.CriteriaPersona;
  */
 public interface PersonaCustomRepository {
 
+	/**
+	 * Consulta Personas con los criterios informados en el objeto recibido.
+	 * @param criteria
+	 * @return List<Persona>
+	 */
 	List<Persona> findPersonasByCriteria(CriteriaPersona criteria);
 	
 }
